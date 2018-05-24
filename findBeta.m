@@ -13,6 +13,7 @@ function findBeta(lambda, n1, n2, a)
     k0 = 2*pi/lambda; 
     u = sqrt(k0^2 * n1^2 - b^2);
     w = sqrt(b^2 - k0^2 * n2^2);
+    nu = 1;
     
     jnu = besselj(nu,u*a);
     knu = besselk(nu,w*a);
