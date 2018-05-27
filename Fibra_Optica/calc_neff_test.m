@@ -5,7 +5,7 @@ clc;
 lambda0 = 1.55e-6; % [m] operating wavelength
 n2 = 1.475; % claddinn1 = 1.5; % core
 a = 5.8e-6; % [m] core radius
-nu = 2;
+nu = 2; % ni parameter
 
 na = sqrt(n1^2-n2^2);
 v = 2*pi*a*na/lambda0;
