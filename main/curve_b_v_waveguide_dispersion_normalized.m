@@ -32,10 +32,10 @@ ylabel('b')
 
 %%
 syms vv
-bb(vv) = P(1)*vv^8+P(2)*vv^7+P(3)*vv^6+P(4)*vv^5+P(5)*vv^4+P(6)*vv^3+...
-         P(7)*vv^2+P(8)*vv+P(9);
+bb(vv) = P(1)*vv^8 + P(2)*vv^7 + P(3)*vv^6 + P(4)*vv^5 + P(5)*vv^4 ...
+       + P(6)*vv^3 + P(7)*vv^2 + P(8)*vv + P(9);
 
-Dwn(vv) = vv.*diff(diff(vv.*bb,vv),vv);      
+Dwn(vv) = vv .* diff(vv .* bb, vv, 2);      
 fDwn = matlabFunction(Dwn);     
      
 figure
