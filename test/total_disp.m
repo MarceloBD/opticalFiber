@@ -2,7 +2,7 @@ clear all;
 close all;
 clc;
 %%
-lambda = linspace(0.8e-6,3.8e-6,100);       % [m] operating wavelength
+lambda =     linspace(0.8e-6,3.8e-6,100);       % [m] operating wavelength
 n2 = 1.475;             % cladding
 n1 = 1.5;               % core
 nu = 2;
