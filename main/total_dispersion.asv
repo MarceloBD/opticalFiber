@@ -1,0 +1,50 @@
+clear all;
+close all;
+clc;
+%%
+Lambda = linspace(1.2e-6,1.6e-6,200);
+delta = 0.005;
+a = 3.5e-6;
+
+mat = 1;
+% 1 - fused silica
+% 2 - germania
+% 3 - titania
+% 4 - (C5H8O2)n 
+% 5 -  LASF9
+
+%%
+n2 = n1*(1 - delta); % cladding
+na = sqrt(n1^2-n2^2);
+vv = 2 * pi * a * na./Lambda;
+
+% material dispersion
+syms lambda 
+[n,Dmat] = function_material_dispersion(mat);
+fn = matlabFunction(n);
+fDmat = matlabFunction(Dmat);
+
+dmat = fDmat(Lambda*1e6);
+n1 = fn(Lambda*1e6);
+
+% waveguide dispersion
+load('data_v_b_Dwn.mat'); % variables: v, b, Dwn 
+P = polyfit(v, Dwn0, 8);
+Dwn_p = polyval(P, v);
+dw = - (n2.*delta/Const.c0).*(1./Lambda).*polyval(P, vv)*1e6;
+
+% total dispersion
+dt = dmat + dw;
+
+figure
+plot(Lambda*1e6, dw, 'r','LineWidth',1.5); grid
+hold on
+plot(Lambda*1e6, dmat, 'g','LineWidth',1.5)
+hold on
+plot(Lambda*1e6, dt, 'k','LineWidth',1.5)
+hLegend = legend('Waveguide','Material','Total','location','northwest');
+set(hLegend,'FontSize',10); 
+xlabel('\lambda (\mum)')
+ylabel('D [ps/(nm km)]')
+
+%%

@@ -3,10 +3,11 @@ close all;
 clc;
 %%
 lambda0 = 1.55e-6;          % [m] operating wavelength
-n2 = 1.475;                 % claddinn1 = 1.5; % core
-n1 = 1.5;
-a = 5.8e-6;                 % [m] core radius
-nu = 2;
+n1 = 1.48;               % core
+delta = 0.005;
+n2 = n1*(1 - delta);     % cladding
+a = 1.6e-6;                 % [m] core radius
+nu = 1;
 
 na = sqrt(n1^2 - n2^2);
 v = 2 * pi * a * na/lambda0;
@@ -20,3 +21,4 @@ fprintf('Quantity of modes propagating: %d \n', length(neff))
 fprintf('Effective refractive index: %f \n', neff)
 b = (neff.^2 - n2^2)/(n1^2 - n2^2);
 fprintf('Normalized propagation constant: %f \n', b)
+%%

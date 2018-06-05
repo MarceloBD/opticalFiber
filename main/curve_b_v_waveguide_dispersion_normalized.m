@@ -3,10 +3,11 @@ close all;
 clc;
 %%
 lambda = 1.55e-6;       % [m] operating wavelength
-n2 = 1.475;             % cladding
-n1 = 1.5;               % core
-a = linspace(0.8e-6,3.8e-6,100);
-nu = 2;
+n1 = 1.48;               % core
+delta = 0.005;
+n2 = n1*(1 - delta);     % cladding
+a = linspace(1.55e-6,8.5e-6,300);
+nu = 1;
 
 na = sqrt(n1^2-n2^2);
 v = 2 * pi .* a * na/lambda;
@@ -37,8 +38,13 @@ bb(vv) = P(1)*vv^8 + P(2)*vv^7 + P(3)*vv^6 + P(4)*vv^5 + P(5)*vv^4 ...
 
 Dwn(vv) = vv .* diff(vv .* bb, vv, 2);      
 fDwn = matlabFunction(Dwn);     
-     
+Dwn0 =  fDwn(v);    
 figure
-plot(v, fDwn(v), 'k'); grid
+plot(v, Dwn0, 'k'); grid
 xlabel('V')
 ylabel('D_{wn}')
+
+%%
+
+
+
