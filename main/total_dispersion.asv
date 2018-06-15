@@ -4,9 +4,9 @@ clc;
 %%
 Lambda = linspace(1.2e-6,1.6e-6,200);
 delta = 0.005;
-a = 3.5e-6;
+a = 4e-6;
 
-mat = 1;
+mat = 5;
 % 1 - fused silica
 % 2 - germania
 % 3 - titania
@@ -14,9 +14,6 @@ mat = 1;
 % 5 -  LASF9
 
 %%
-n2 = n1*(1 - delta); % cladding
-na = sqrt(n1^2-n2^2);
-vv = 2 * pi * a * na./Lambda;
 
 % material dispersion
 syms lambda 
@@ -26,6 +23,11 @@ fDmat = matlabFunction(Dmat);
 
 dmat = fDmat(Lambda*1e6);
 n1 = fn(Lambda*1e6);
+n2 = n1*(1 - delta); % cladding
+na = sqrt(n1.^2 - n2.^2);
+vv = 2 * pi * a .* na./Lambda;
+fprintf('Normalized frequency (first value): %f \n', vv(end))
+fprintf('Normalized frequency (end value): %f \n', vv(1))
 
 % waveguide dispersion
 load('data_v_b_Dwn.mat'); % variables: v, b, Dwn 
@@ -44,7 +46,11 @@ hold on
 plot(Lambda*1e6, dt, 'k','LineWidth',1.5)
 hLegend = legend('Waveguide','Material','Total','location','northwest');
 set(hLegend,'FontSize',10); 
+title([' a: ' num2str(a*1e6),'\mum     \Delta: ' num2str(delta),'\mum      disp at ' num2str(Lambda(176)*1e6) ': ' num2str(dt(176)),'']);
+%title([' a: ' num2str(a*1e6),'\mum  \Delta: 'num2str(delta),'']);
 xlabel('\lambda (\mum)')
 ylabel('D [ps/(nm km)]')
 
+ylim([-50 30])
+xlim([1.35 1.6])
 %%

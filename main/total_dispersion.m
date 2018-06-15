@@ -4,7 +4,7 @@ clc;
 %%
 Lambda = linspace(1.2e-6,1.6e-6,200);
 delta = 0.005;
-a = 3.5e-6;
+a = 4e-6;
 
 mat = 1;
 % 1 - fused silica
@@ -46,9 +46,11 @@ hold on
 plot(Lambda*1e6, dt, 'k','LineWidth',1.5)
 hLegend = legend('Waveguide','Material','Total','location','northwest');
 set(hLegend,'FontSize',10); 
-title([' a: ' num2str(a*1e6),'\mum     \Delta: ' num2str(delta),'']);
+title([' a: ' num2str(a*1e6),'\mum     \Delta: ' num2str(delta),'\mum      disp at ' num2str(Lambda(176)*1e6) ': ' num2str(dt(176)),'']);
 %title([' a: ' num2str(a*1e6),'\mum  \Delta: 'num2str(delta),'']);
 xlabel('\lambda (\mum)')
 ylabel('D [ps/(nm km)]')
 
+ylim([-100 30])
+xlim([1.35 1.6])
 %%
