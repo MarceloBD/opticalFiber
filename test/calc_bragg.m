@@ -6,7 +6,7 @@ Lambda = linspace(1.2e-6,1.6e-6,200);
 delta = 0.005;
 a = 4e-6;
 
-mat = 5;
+mat = 1;
 % 1 - fused silica
 % 2 - germania
 % 3 - titania
@@ -38,19 +38,4 @@ dw = - (n2.*delta/Const.c0).*(1./Lambda).*polyval(P, vv)*1e6;
 % total dispersion
 dt = dmat + dw;
 
-figure
-plot(Lambda*1e6, dw, 'r','LineWidth',1.5); grid
-hold on
-plot(Lambda*1e6, dmat, 'g','LineWidth',1.5)
-hold on
-plot(Lambda*1e6, dt, 'k','LineWidth',1.5)
-hLegend = legend('Waveguide','Material','Total','location','northwest');
-set(hLegend,'FontSize',10); 
-title([' a: ' num2str(a*1e6),'\mum     \Delta: ' num2str(delta),'\mum      disp at ' num2str(Lambda(176)*1e6) ': ' num2str(dt(176)),'']);
-%title([' a: ' num2str(a*1e6),'\mum  \Delta: 'num2str(delta),'']);
-xlabel('\lambda (\mum)')
-ylabel('D [ps/(nm km)]')
-
-ylim([-50 30])
-xlim([1.35 1.6])
-%%
+function_bragg_dispersion(dt, Lambda*1e6, 1);
